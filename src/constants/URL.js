@@ -1,0 +1,1 @@
+export const API_URL = "https://62d938329eedb699635679b1.mockapi.io/api/v3/comments"
