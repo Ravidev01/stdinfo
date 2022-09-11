@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../constants/URL";
 import "../home/home.css";
 
 const Home = () => {
   const [apiData, setapiData] = useState([{}]);
+  const navigate = useNavigate();
 
   const callGetAPL = async () => {
     const response = await axios.get(API_URL);
@@ -24,6 +27,12 @@ const Home = () => {
     setapiData(test);
   };
 
+  const handleUpdate =(id)=>{
+
+    navigate(`/dataadd?id=${id}`)
+
+  }
+
   return (
     <div className="tableCard">
       <table className="table table-hover">
@@ -34,14 +43,14 @@ const Home = () => {
             <th scope="col">Last</th>
             <th scope="col">Handle</th>
             <th scope="col"></th>
-            
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          {apiData.map((data,i) => {
+          {apiData.map((data, i) => {
             return (
               <tr key={data.id}>
-                <th scope="row">{i+1}</th>
+                <th scope="row">{i + 1}</th>
                 <td>{data.firstName}</td>
                 <td>{data.lastName}</td>
                 <td>test@gmail.com</td>
@@ -51,7 +60,16 @@ const Home = () => {
                     className="bi bi-pen"
                     style={{ color: "red", cursor: "pointer" }}
                   >
-                    <DeleteForeverOutlinedIcon/>
+                    <DeleteForeverOutlinedIcon />
+                  </i>
+                </td>
+
+                <td>
+                  <i
+                    onClick={() => handleUpdate(data.id)}
+                    style={{cursor: "pointer" }}
+                  >
+                    <EditOutlinedIcon />
                   </i>
                 </td>
               </tr>

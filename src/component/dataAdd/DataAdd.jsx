@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,8 +7,11 @@ import { API_URL } from "../../constants/URL";
 const DataAdd = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  console.log(params.get("id"));
   // const handleSubmit =()=>{
 
   //   console.log(firstName);
@@ -17,15 +20,36 @@ const DataAdd = () => {
 
   const postData = async (e) => {
     e.preventDefault();
-    await axios.post(API_URL, {
-      firstName,
-      lastName,
-    });
+    if (id) {
+      await axios.put(`${API_URL}/${id}`, {
+        firstName,
+        lastName,
+      });
+      navigate("/home");
+
+    } else {
+      await axios.post(API_URL, {
+        firstName,
+        lastName,
+      });
+    }
     setFirstName("");
-    setLastName("")
+    setLastName("");
     console.log(firstName);
-    navigate('/home')
+    navigate("/home");
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      if (id) {
+        const data = await axios.get(`${API_URL}/${id}`);
+        console.log(data.data);
+        setFirstName(data.data.firstName);
+        setLastName(data.data.lastName);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <div className="container" style={{ marginTop: "10px", width: "50%" }}>
@@ -57,7 +81,7 @@ const DataAdd = () => {
         </div>
         <div className="d-grid gap-2 mt-3 p-100">
           <button type="submit" className="btn btn-primary">
-            Submit
+            {id ? "Update" : "Submit"}
           </button>
         </div>
       </form>
