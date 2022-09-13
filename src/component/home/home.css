@@ -1,5 +1,17 @@
 .tableCard{
-    margin: 20px;
+    /* text-align : center ;
+background-color : #282c34 ;
+display : flex ;
+justify-content : center ;
+align-items : center ;
+width : 100% ;
+height : 100vh ; */
+    color: rgb(207, 133, 22);
+    /* margin: 20px; */
     padding: 10px;
-    
+    border-width: 20px;
+}
+.fullview{
+    margin-top: 200px;
+text-align : center ;
 }

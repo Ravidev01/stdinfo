@@ -1,7 +1,12 @@
-.card{
+/* .container{
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: aquamarine;
-    margin: 30px;
+    padding: 10px;
+} */
+.row{
+    margin: 10px;
 }
+    /* background-image: linear-gradient(  to right , #051421, #042727); */
+ /* background-color: #032541; */

@@ -3,15 +3,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./component/login/Login";
 import Home from "./component/home/Home";
 import DataAdd from "./component/dataAdd/DataAdd";
+// import Navbar from "./component/navbar/Navbar";
+import Withoutnav from "./component/layout/Withoutnav";
+import Withnav from "./component/layout/Withnav";
+import "./App.css";
+
 const App = () => {
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Login/>}/>
-        <Route exact path="/home" element={<Home/>}/>
-        <Route exact path="/dataadd" element={<DataAdd/>}/>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Withoutnav />}>
+            <Route path="/" element={<Login />} />
+          </Route>
+          <Route element={<Withnav  />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/dataadd" element={<DataAdd />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 

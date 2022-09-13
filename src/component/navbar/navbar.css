@@ -1,0 +1,27 @@
+.navbar{
+    color:white;
+    box-shadow: 1px 1px 9px #e0d9d9;
+    background-color: #F8F9FA;
+    padding:1px;
+}
+.navbar-brand{
+    color: rgb(15, 14, 14);
+
+}
+.list ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 20px;
+    margin-top: 10px;
+    gap:1rem;
+    list-style: none;
+}
+
+.link{
+    text-decoration: none;
+}
+.input{
+    margin-right: 250px !important;
+}
