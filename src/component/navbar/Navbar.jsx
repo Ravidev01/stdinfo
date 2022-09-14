@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 import "../navbar/navbar.css";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
+// import stores from "../../store/stores";
+import {StudentStore1} from "../../store/studentstore";
+
+
+
 
 
 const Navbar = () => {
+
+   const store = StudentStore1;
   const [filterValue, setFilterValue] = useState('')
 
   const navigate = useNavigate();
@@ -14,7 +21,8 @@ const Navbar = () => {
   const searchHandler = (e) => {
           e.preventDefault();
            setFilterValue(e.target.value);
-           localStorage.setItem("SearchedValue",e.target.value)
+           store.addValue(filterValue)
+          //  localStorage.setItem("SearchedValue",e.target.value)
   }
   const handleLogout =()=>{
     navigate("/");

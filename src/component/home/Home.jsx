@@ -1,4 +1,4 @@
-import React, { useEffect, useState, CSSProperties } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -6,11 +6,19 @@ import { useNavigate } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { observer} from 'mobx-react'
+
+import {StudentStore1} from "../../store/studentstore";
+
+
 
 import { API_URL } from "../../constants/URL";
 import "../home/home.css";
 
-const Home = () => {
+const Home = observer(() => {
+
+  const store = StudentStore1;  
+
   const [apiData, setapiData] = useState([{}]);
   const [filterdValue, setFilterValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,13 +32,13 @@ const Home = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-    const filterdValue = localStorage.getItem("SearchedValue");
-    setFilterValue(filterdValue);
-    console.log(filterdValue);
+    // const filterdValue = localStorage.getItem("SearchedValue");
+    // setFilterValue(filterdValue);
   };
-
+  // console.log(store.searchedValue);
   useEffect(() => {
     callGetAPL();
+    setFilterValue(store.searchedValue)
   }, []);
 
   const handleDelete = async (id) => {
@@ -65,7 +73,7 @@ const Home = () => {
                 First <ArrowDropUpIcon />
                 <ArrowDropDownIcon />{" "}
               </th>
-              <th scope="col">Last</th>
+              <th scope="col">Last{filterdValue}</th>
               <th scope="col">Email</th>
               <th scope="col">Age</th>
               <th scope="col">Contact Number</th>
@@ -75,19 +83,13 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {apiData
-              .filter((data) => {
-                if (filterdValue == "") {
-                  return data;
-                } else if (
-                  data.firstName
-                    .toLowerCase()
-                    .includes(filterdValue.toLowerCase())
-                ) {
-                  return data;
-                }
-              })
-              .map((data, i) => {
+            {apiData.filter((val)=>{
+              if(store.searchedValue == ""){
+                return val
+              }else if(val.firstName.toLowerCase().includes(store.searchedValue.toLowerCase())){
+                return val
+              }
+            }).map((data, i) => {
                 return (
                   <tr key={data.id}>
                     <th scope="row">{i + 1}</th>
@@ -123,6 +125,6 @@ const Home = () => {
       )}
     </div>
   );
-};
+});
 
 export default Home;

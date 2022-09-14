@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from"mobx-react"; 
 import Login from "./component/login/Login";
 import Home from "./component/home/Home";
 import DataAdd from "./component/dataAdd/DataAdd";
@@ -11,6 +12,7 @@ import "./App.css";
 const App = () => {
 
   return (
+    <Provider>
     <div className="App">
       <BrowserRouter>
         <Routes>
@@ -24,6 +26,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
+    </Provider>
   );
 };
 
