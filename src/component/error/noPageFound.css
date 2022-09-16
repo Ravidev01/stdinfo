@@ -1,0 +1,15 @@
+.error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 1px;
+}
+.error img{
+    height: 400px;
+    position: relative;
+}
+h5{
+    margin-top: -78px;
+    margin-bottom: 30px;
+}

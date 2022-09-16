@@ -7,9 +7,12 @@ import DataAdd from "./component/dataAdd/DataAdd";
 // import Navbar from "./component/navbar/Navbar";
 import Withoutnav from "./component/layout/Withoutnav";
 import Withnav from "./component/layout/Withnav";
+import NoPageFound from "./component/error/NoPageFound";
 import "./App.css";
 
 const App = () => {
+  
+  const access = localStorage.getItem("auth");
 
   return (
     <Provider>
@@ -23,6 +26,7 @@ const App = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/dataadd" element={<DataAdd />} />
           </Route>
+          <Route path="*" element={<NoPageFound/>}/>
         </Routes>
       </BrowserRouter>
     </div>

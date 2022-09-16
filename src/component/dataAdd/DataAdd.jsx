@@ -54,6 +54,7 @@ const DataAdd = () => {
   useEffect(() => {
     const getData = async () => {
       if (id) {
+        // event.target.reset();
         const data = await axios.get(`${API_URL}/${id}`);
         console.log(data.data);
         setFirstName(data.data.firstName);

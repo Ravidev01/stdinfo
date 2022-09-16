@@ -5,11 +5,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setemail] = useState("");
+  const [email, setemail] = useState();
   const [password, setpassword] = useState();
   const navigate = useNavigate();
 
-
+     const users ={
+        email:"ravi123@gmail.com",
+        password:"123"
+     }
 
   const [upEmail, setupEmail] = useState("");
   const [upPassword, setupPassword] = useState();
@@ -20,8 +23,14 @@ const Login = () => {
     e.preventDefault();
     console.log(email);
     console.log(password);
+    if (email===users.email && password===users.password){
+      localStorage.setItem("auth",'admin');
+      navigate("/home");
 
-    navigate("/home");
+    }else{
+      alert("Invaild username or password")
+    }
+
   };
 
   const upHandleSubmit = (e) => {

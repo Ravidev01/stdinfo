@@ -1,33 +1,30 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../navbar/navbar.css";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 // import stores from "../../store/stores";
-import {StudentStore1} from "../../store/studentstore";
-
-
-
-
+import { StudentStore1 } from "../../store/studentstore";
 
 const Navbar = () => {
+  const path = window.location.pathname;
+  console.log(path);
 
-   const store = StudentStore1;
-  const [filterValue, setFilterValue] = useState('')
+  const store = StudentStore1;
+  const [filterValue, setFilterValue] = useState();
 
   const navigate = useNavigate();
 
-
   const searchHandler = (e) => {
-          e.preventDefault();
-           setFilterValue(e.target.value);
-           store.addValue(filterValue)
-          //  localStorage.setItem("SearchedValue",e.target.value)
-  }
-  const handleLogout =()=>{
+    e.preventDefault();
+    setFilterValue(e.target.value);
+    store.addValue(e.target.value);
+    //  localStorage.setItem("SearchedValue",e.target.value)
+  };
+  const handleLogout = () => {
+    localStorage.clear();
     navigate("/");
-  }
-
+  };
 
   return (
     <nav class="navbar ">
@@ -40,14 +37,18 @@ const Navbar = () => {
         <div className="list">
           <ul>
             <li className="input ">
-              <input
-              value={filterValue}
-              onChange={searchHandler}
-                class="form-control "
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
+              {path === "/home" ? (
+                <input
+                  value={filterValue}
+                  onChange={searchHandler}
+                  class="form-control "
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              ) : (
+                ""
+              )}
             </li>
             <li>
               <Link className="link" to="home">
@@ -60,7 +61,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <LogoutIcon style={{color:"red"}} onClick={handleLogout}>logout</LogoutIcon>
+              <LogoutIcon style={{ color: "red" }} onClick={handleLogout}>
+                logout
+              </LogoutIcon>
             </li>
           </ul>
         </div>

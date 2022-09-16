@@ -5,7 +5,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useNavigate } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+// import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { observer} from 'mobx-react'
 
 import {StudentStore1} from "../../store/studentstore";
@@ -22,8 +22,30 @@ const Home = observer(() => {
   const [apiData, setapiData] = useState([{}]);
   const [filterdValue, setFilterValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [sortStatus, setSortStatus] = useState(true);
   // let [color, setColor] = useState("#ffffff");
   const navigate = useNavigate();
+
+  const handleSort = () => {
+    console.log("hi");
+    // const data = [...apiData] ;
+    if (sortStatus) {
+        let sorted = [...apiData].sort((a, b) => a.firstName > b.firstName?1:-1);
+        setapiData(sorted);
+        setSortStatus(!sortStatus);
+    } else {
+        let sorted = [...apiData].sort((a, b) => b.firstName > a.firstName?1:-1);
+        setapiData(sorted);
+        setSortStatus(!sortStatus);
+    }
+  }
+
+  // const handleSort =()=>{
+  //   const sortedData = [...apiData].sort((a,b)=>{
+  //     return a.firstName > b.firstName?1:-1
+  //   })
+  //   setapiData(sortedData)
+  // }
 
   const callGetAPL = async () => {
     const response = await axios.get(API_URL);
@@ -39,7 +61,7 @@ const Home = observer(() => {
   useEffect(() => {
     callGetAPL();
     setFilterValue(store.searchedValue)
-  }, []);
+  },[]);
 
   const handleDelete = async (id) => {
     const test = apiData.filter((a) => a.id !== id);
@@ -70,8 +92,8 @@ const Home = observer(() => {
                 #
               </th>
               <th scope="col">
-                First <ArrowDropUpIcon />
-                <ArrowDropDownIcon />{" "}
+                First <ArrowDropUpIcon onClick={handleSort} />
+                {/* <ArrowDropDownIcon /> */}
               </th>
               <th scope="col">Last{filterdValue}</th>
               <th scope="col">Email</th>
@@ -84,13 +106,13 @@ const Home = observer(() => {
           </thead>
           <tbody>
             {apiData.filter((val)=>{
-              if(store.searchedValue == ""){
+              if(store.searchedValue === ""){
                 return val
               }else if(val.firstName.toLowerCase().includes(store.searchedValue.toLowerCase())){
                 return val
               }
             }).map((data, i) => {
-                return (
+                return ( 
                   <tr key={data.id}>
                     <th scope="row">{i + 1}</th>
                     <td>{data.firstName}</td>
