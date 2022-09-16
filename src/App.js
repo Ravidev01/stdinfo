@@ -9,10 +9,11 @@ import Withoutnav from "./component/layout/Withoutnav";
 import Withnav from "./component/layout/Withnav";
 import NoPageFound from "./component/error/NoPageFound";
 import "./App.css";
+import ProtectedRoute from "./component/layout/ProtectedRoute";
 
 const App = () => {
   
-  const access = localStorage.getItem("auth");
+  // const access = localStorage.getItem("auth");
 
   return (
     <Provider>
@@ -22,9 +23,11 @@ const App = () => {
           <Route element={<Withoutnav />}>
             <Route path="/" element={<Login />} />
           </Route>
+          <Route element={<ProtectedRoute/>}>
           <Route element={<Withnav  />}>
             <Route path="/home" element={<Home />} />
             <Route path="/dataadd" element={<DataAdd />} />
+          </Route>
           </Route>
           <Route path="*" element={<NoPageFound/>}/>
         </Routes>
